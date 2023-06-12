@@ -1,9 +1,8 @@
 name: client-tests-workflow
 
-on:
-  pull_request
-  
-  jobs:
+on: pull_request
+
+jobs:
   test-client:
     runs-on: ubuntu-latest
     steps:
@@ -11,3 +10,16 @@ on:
         uses: actions/checkout@v2
       - name: Goto client and run tests
         run: cd client && npm i && npm test
+  
+  publish:
+    runs-on: 'ubuntu-latest'
+
+    permissions:
+      contents: 'write'
+      pull-requests: 'read'
+
+    steps:
+      - uses: 'actions/checkout@v3'
+
+      - name: 'Publish Release'
+        uses: 'azurystudio/log@v1'
